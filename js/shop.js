@@ -5,6 +5,7 @@ var products = [
         name: 'cooking oil',
         price: 10.5,
         type: 'grocery',
+        quantity:0,
         offer: {
             number: 3,
             percent: 20
@@ -14,13 +15,18 @@ var products = [
         id: 2,
         name: 'Pasta',
         price: 6.25,
-        type: 'grocery'
+        type: 'grocery',
+        quantity:0,
+
+        
     },
     {
         id: 3,
         name: 'Instant cupcake mixture',
         price: 5,
         type: 'grocery',
+        quantity:0,
+
         offer: {
             number: 10,
             percent: 30
@@ -30,37 +36,50 @@ var products = [
         id: 4,
         name: 'All-in-one',
         price: 260,
-        type: 'beauty'
+        type: 'beauty',
+        quantity:0,
+
     },
     {
         id: 5,
         name: 'Zero Make-up Kit',
         price: 20.5,
-        type: 'beauty'
+        type: 'beauty',
+        quantity:0,
+        
     },
     {
         id: 6,
         name: 'Lip Tints',
         price: 12.75,
-        type: 'beauty'
+        type: 'beauty',
+        quantity:0,
+
     },
     {
         id: 7,
         name: 'Lawn Dress',
         price: 15,
-        type: 'clothes'
+        type: 'clothes',
+        quantity:0,
+
     },
     {
         id: 8,
         name: 'Lawn-Chiffon Combo',
         price: 19.99,
-        type: 'clothes'
+        type: 'clothes',
+        quantity:0,
+
     },
     {
         id: 9,
         name: 'Toddler Frock',
         price: 9.99,
-        type: 'clothes'
+        type: 'clothes',
+        quantity:0,
+
+        
     }
 ]
 // Array with products (objects) added directly with push(). Products in this array are repeated.
@@ -75,23 +94,66 @@ var total = 0;
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
+   for (let i=0; i < products.length; i++){
+        if(products[i].id === id){
+            cartList.push(products[i]);
+        }
+    } 
+    console.log(`cartList origin`)
+    console.log(cartList)
+
+    return cartList;
 }
 
 // Exercise 2
 function cleanCart() {
-
+    for (let i=0; i<cartList.length; i++){
+            cartList.splice([i],cartList.length);
+    }
+    //console.log(cartList);
+    return cartList;
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+    let totalCartList = 0;
+    for (let i=0; i<cartList.length; i++){
+        totalCartList += cartList[i].price;
+    }
+    //console.log(totalCartList);
+    return totalCartList;
 }
 
 // Exercise 4
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+    let total =0;
+    let aux =[];
+    
+    for(let i=0; i<cartList.length; i++){
+      aux.forEach(function(item){
+        if(item.id == cartList[i].id){
+            total = item.quantity - 1;
+        }
+    }) 
+    cartList[i].quantity++; // suma 3 a los repes
+    aux.push(cartList[i]); 
+    }
+    console.log('auxiliar cart');
+    console.log(aux); 
+
+    cart = aux.filter((item, index)=>{
+        return aux.indexOf(item) === index;
+    })
+    console.log('final cart')
+    console.log(cart);
+
+
 }
+
+
 
 // Exercise 5
 function applyPromotionsCart() {
