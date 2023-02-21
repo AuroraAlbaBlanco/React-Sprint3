@@ -99,8 +99,8 @@ function buy(id) {
             cartList.push(products[i]);
         }
     } 
-    console.log(`cartList origin`)
-    console.log(cartList)
+    //console.log(`cartList origin`)
+    //console.log(cartList)
 
     return cartList;
 }
@@ -138,26 +138,54 @@ function generateCart() {
             total = item.quantity - 1;
         }
     }) 
-    cartList[i].quantity++; // suma 3 a los repes
+    cartList[i].quantity++; 
     aux.push(cartList[i]); 
     }
-    console.log('auxiliar cart');
-    console.log(aux); 
+    //console.log('auxiliar cart');
+    //console.log(aux); 
 
     cart = aux.filter((item, index)=>{
         return aux.indexOf(item) === index;
     })
     console.log('final cart')
     console.log(cart);
-
+    return cart;
 
 }
-
 
 
 // Exercise 5
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
+let oilDiscount = 10;
+let subtotalOilDiscount = 0;
+let cupcakeDiscount = 2*5/3;
+let subtotalCakeDiscount = 0;
+let subtotalWithDiscount;
+for(let i=0; i<cart.length; i++){
+    if(cart.id = 1){
+        if(cart[i].quantity >=3){
+            cart[i].price = oilDiscount;
+            subtotalOilDiscount = oilDiscount * cart[i].quantity;   
+        }
+    }
+    //console.log('descuento aceite')
+    //console.log(subtotalOilDiscount)
+
+    if(cart.id = 3){
+        if(cart[i].quantity >=10){
+            cart[i].price = cupcakeDiscount;
+            subtotalCakeDiscount = (cupcakeDiscount * cart[i].quantity).toFixed(2);
+        } 
+    }
+    //console.log('descuento pastel')
+    //console.log(subtotalCakeDiscount)
+}
+subtotalWithDiscount = subtotalOilDiscount || subtotalCakeDiscount;
+console.log('subtotal');
+console.log(subtotalWithDiscount);
+return subtotalWithDiscount;
+
 }
 
 // Exercise 6
