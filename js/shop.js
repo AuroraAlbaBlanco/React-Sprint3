@@ -93,35 +93,34 @@ var total = 0;
 function buy(id) {
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
-    for (let i = 0; i < products.length; i++) {
-        if (products[i].id === id) {
-            cartList.push(products[i]);
-        }
-    }
-    //console.log(`cartList origin`)
-    //console.log(cartList)
-
+   products.forEach(item =>{
+    if(item.id === id){cartList.push(item)}
+   })
     return cartList;
 }
 
 // Exercise 2
 function cleanCart() {
-    for (let i = 0; i < cartList.length; i++) {
-        cartList.splice([i], cartList.length);
-    }
-    //console.log(cartList);
+    /*cartList.forEach(item =>cartList.splice(item));
+    console.log('cartList ex2')
+    console.log(cartList)*/
+    cartList = [];
+    console.log(cartList)
     return cartList;
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+
     let totalCartList = 0;
-    for (let i = 0; i < cartList.length; i++) {
-        totalCartList += cartList[i].price;
-    }
-    //console.log(totalCartList);
+    cart.forEach(item =>{
+        applyPromotionsCart(item);
+        totalCartList += item.price * item.quantity
+    })
+    console.log(totalCartList);
     return totalCartList;
+
 }
 
 // Exercise 4
@@ -140,9 +139,7 @@ function generateCart() {
         cartList[i].quantity++;
         aux.push(cartList[i]);
     }
-    //console.log('auxiliar cart');
-    //console.log(aux); 
-
+ 
     cart = aux.filter((item, index) => {
         return aux.indexOf(item) === index;
     })
@@ -168,9 +165,6 @@ let cupcakeDiscount = 2 * 5 / 3;
         subtotalWithDiscount = item.quantity * item.price;
     }
 
-    console.log('final price');
-    console.log(subtotalWithDiscount)
-
  return subtotalWithDiscount;
 
 }
@@ -181,14 +175,10 @@ function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
     let outModal =  document.getElementById('cart_list');
     let outCart = generateCart();
-    //let outCart = cart;
-    //let outDiscount = 0;
     let strHTML  ='';
+    let total = 0;
 
-    
-    
     for(let i=0; i< outCart.length; i++){
-        //outDiscount = applyPromotionsCart(outCart[i]);
         strHTML += '<tr>'
         strHTML += '<th scope="row">' + outCart[i].name + '</th>';
         strHTML +=  '<td scope="col" class="text-center">' + '$'+ outCart[i].price + '</td>';
@@ -197,12 +187,12 @@ function printCart() {
         strHTML += '</tr>';
         console.log(strHTML);
     }
-    
     outModal.innerHTML = strHTML;
-    //console.log(outModal);
+
+    total = calculateTotal();
+    document.getElementById('total_price').innerHTML = total;
 
 }
-
 
 // ** Nivell II **
 
@@ -211,6 +201,8 @@ function addToCart(id) {
     // Refactor previous code in order to simplify it 
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+
+    
 }
 
 // Exercise 8
